@@ -8,16 +8,21 @@ import java.lang.Thread.sleep
 
 //задали параметры на старте (лежит Any, но вскоре будет ответ сервера про погоду)
 //называется - свойство livedate
-class MainViewModel(private val liveData: MutableLiveData<Any> = MutableLiveData()):ViewModel() {
+class MainViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData()):ViewModel() {
 
-    fun getData(): LiveData<Any>{
+    fun getData(): LiveData<AppState>{
         return liveData
     }
 
     fun getWeather(){
         Thread{
+            liveData.postValue(AppState.Loading)
             sleep(1000L)
-            liveData.postValue(Any())
+            if((0..10).random()>5){
+                liveData.postValue(AppState.Success(Any()))
+            } else {
+                liveData.postValue(AppState.Error(IllegalAccessException()))
+            }
         }.start()
     }
 

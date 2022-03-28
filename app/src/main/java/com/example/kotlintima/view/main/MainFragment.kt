@@ -11,11 +11,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlintima.R
 import com.example.kotlintima.databinding.FragmentMainBinding
+import com.example.kotlintima.viewmodel.AppState
 import com.example.kotlintima.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
     lateinit var binding:FragmentMainBinding//утечка памяти
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //binding=null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,16 +37,16 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //не спасает от null pointer ex
-        binding.buttonOne.setOnClickListener{}
-        view.findViewById<Button>(R.id.buttonOne).setOnClickListener{}
+//        binding.buttonOne.setOnClickListener{}
+//        view.findViewById<Button>(R.id.buttonOne).setOnClickListener{}
 
         //viewModelProvider его задача - верни или создай мне view, если уже есть, возвращает
         //главный плюс provider, при повороте соханяет экземпляр
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         //val observer = Observer<Any>{renderData(it)}
         //callback observer \\
-        val observer = object:Observer<Any>{
-            override fun onChanged(data: Any) {
+        val observer = object:Observer<AppState>{
+            override fun onChanged(data: AppState) {
                 renderData(data)
             }
         }
@@ -51,8 +57,20 @@ class MainFragment : Fragment() {
         viewModel.getWeather()
     }
 
-    private fun renderData(data:Any){
-        Toast.makeText(requireContext(),"Work!", Toast.LENGTH_SHORT).show()
+    private fun renderData(data:AppState){
+        when(data){
+            is AppState.Success -> {
+                binding.loadingLayout.visibility=View.GONE
+                binding.message.text="Получилось"
+            }
+            is AppState.Loading -> {
+                binding.loadingLayout.visibility=View.VISIBLE
+            }
+            is AppState.Error -> {
+                binding.loadingLayout.visibility=View.GONE
+                binding.message.text="Не получилось ${data.error}"
+            }
+        }
     }
 
     companion object {
