@@ -26,9 +26,6 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    //viewModelProvider его задача - верни или создай мне view, если уже есть, возвращает
-    //главный плюс provider, при повороте соханяет экземпляр
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -41,15 +38,19 @@ class MainFragment : Fragment() {
         when (data) {
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
-                binding.message.text = "Получилось"
+                binding.temperatureValue.text = data.weatherData.temperature.toString()
+                binding.cityName.text = data.weatherData.city.name
+                binding.feelsLikeValue.text = data.weatherData.feelsLike.toString()
+                binding.cityCoordinates.text =
+                    "${data.weatherData.city.lat} ${data.weatherData.city.lon}"
+                Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_LONG).show()
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                //binding.message.text="Не получилось ${data.error}"
-                Snackbar.make(binding.frameLayout, "Не получилось", Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.mainView, "Не получилось", Snackbar.LENGTH_LONG)
                     .setAction("Reload") { viewModel.getWeather() }.show()
             }
         }
