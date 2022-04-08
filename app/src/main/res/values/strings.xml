@@ -8,4 +8,8 @@
     <string name="city_coordinates">lt/ln: %s, %s"</string>
     <string name="error">Error</string>
     <string name="reload">Reload</string>
+    <string name="moscow_string">Москва</string>
+    <string name="coord_lt_ln">lt/ln: 55.755826, 37.617299900000035</string>
+    <string name="def_temperature_string">+15</string>
+    <string name="def_feels_temp_string">-23</string>
 </resources>

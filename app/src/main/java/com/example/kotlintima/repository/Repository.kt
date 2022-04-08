@@ -1,6 +1,8 @@
 package com.example.kotlintima.repository
 
 interface Repository {
-    fun getWeatherFromServer():Weather //вернуть погоду из сервера
-    fun getWeatherFromLocalStorage():Weather //вернуть погоду локально
+
+    fun getWeatherFromServer():Weather
+    fun getWorldWeatherFromLocalStorage():List<Weather>
+    fun getRussianWeatherFromLocalStorage():List<Weather>
 }
