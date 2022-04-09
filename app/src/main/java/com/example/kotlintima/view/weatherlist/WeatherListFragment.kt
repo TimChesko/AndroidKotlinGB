@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DiffUtil
 import com.example.kotlintima.R
 import com.example.kotlintima.databinding.FragmentWeatherListBinding
 import com.example.kotlintima.repository.Weather
@@ -40,17 +41,13 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         return binding.root
     }
 
-    var isRussian = true
+    private var isRussian = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.adapter = adapter // TODO HW вынесты в initRecycler()
+        initRecycler()
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        val observer = object : Observer<AppState> {
-            override fun onChanged(data: AppState) {
-                renderData(data)
-            }
-        }
+        val observer = Observer<AppState> { data -> renderData(data) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
 
         binding.floatingActionButton.setOnClickListener {
@@ -76,6 +73,10 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         viewModel.getWeatherRussia()
     }
 
+    private fun initRecycler() {
+        binding.recyclerView.adapter = adapter
+    }
+
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Error -> {
@@ -88,7 +89,12 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
             }
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
+
+                val weatherDiffUtilCallback =
+                    WeatherDiffUtilCallback(adapter.getData(), data.weatherList)
+                val productDiffResult = DiffUtil.calculateDiff(weatherDiffUtilCallback)
                 adapter.setData(data.weatherList)
+                productDiffResult.dispatchUpdatesTo(adapter)
             }
         }
     }
@@ -101,7 +107,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     override fun onItemClick(weather: Weather) {
         val bundle = Bundle()
         bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
-        requireActivity().supportFragmentManager.beginTransaction().add(
+        requireActivity().supportFragmentManager.beginTransaction().replace(
             R.id.container,
             DetailsFragment.newInstance(bundle)
         ).addToBackStack("").commit()

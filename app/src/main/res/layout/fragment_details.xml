@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/white">
-    <!--TODO HW   android:clickable="true"-->
+
+    <!--Вместо add написал replace, думаю для такого приложения норм тема
+    android:clickable="true"-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainView"
         android:layout_width="match_parent"

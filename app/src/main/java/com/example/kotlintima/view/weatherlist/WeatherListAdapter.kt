@@ -1,6 +1,5 @@
 package com.example.kotlintima.view.weatherlist
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,16 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintima.databinding.FragmentWeatherListRecyclerItemBinding
 import com.example.kotlintima.repository.Weather
 
+
 class WeatherListAdapter(
     private val onItemListClickListener: OnItemListClickListener,
     private var data: List<Weather> = listOf()
 ) :
     RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
 
-    @SuppressLint("NotifyDataSetChanged")
+    fun getData() = data
+
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {

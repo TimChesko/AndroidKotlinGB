@@ -29,25 +29,22 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        //return inflater.inflate(R.layout.fragment_main, container, false)
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather: Weather = requireArguments().getParcelable<Weather>(KEY_BUNDLE_WEATHER)!!
+        val weather: Weather = requireArguments().getParcelable(KEY_BUNDLE_WEATHER)!!
         renderData(weather)
     }
 
     private fun renderData(weather: Weather) {
         binding.loadingLayout.visibility = View.GONE
-        binding.cityName.text = weather.city.name.toString()
+        binding.cityName.text = weather.city.name
         binding.temperatureValue.text = weather.temperature.toString()
         binding.feelsLikeValue.text = weather.feelsLike.toString()
         binding.cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
-        Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_LONG).show()
-        //Toast.makeText(requireContext(),"РАБОТАЕТ",Toast.LENGTH_SHORT).show()
     }
 
     companion object {

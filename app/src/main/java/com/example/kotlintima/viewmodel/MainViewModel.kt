@@ -18,7 +18,6 @@ class MainViewModel(
     fun getWeatherRussia() = getWeather(true)
     fun getWeatherWorld() = getWeather(false)
 
-
     private fun getWeather(isRussian: Boolean) {
         Thread {
             liveData.postValue(AppState.Loading)
