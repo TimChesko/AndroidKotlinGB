@@ -17,6 +17,7 @@ import com.example.kotlintima.view.details.DetailsFragment
 import com.example.kotlintima.viewmodel.AppState
 import com.example.kotlintima.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_details.*
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
@@ -36,7 +37,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWeatherListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -77,25 +78,25 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun renderData(data: AppState) {
-        when (data) {
-            is AppState.Error -> {
-                binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
-                    .show()
+    private fun renderData(data: AppState) = when (data) {
+        is AppState.Error -> {
+            binding.loadingLayout.visibility = View.GONE
+            with(DetailsFragment()){
+                mainView.showSnackBar(mainView, "Не получилось ${data.error}")
             }
-            is AppState.Loading -> {
-                binding.loadingLayout.visibility = View.VISIBLE
-            }
-            is AppState.Success -> {
-                binding.loadingLayout.visibility = View.GONE
+        }
 
-                val weatherDiffUtilCallback =
-                    WeatherDiffUtilCallback(adapter.getData(), data.weatherList)
-                val productDiffResult = DiffUtil.calculateDiff(weatherDiffUtilCallback)
-                adapter.setData(data.weatherList)
-                productDiffResult.dispatchUpdatesTo(adapter)
+        is AppState.Loading -> {
+            binding.loadingLayout.visibility = View.VISIBLE
+        }
+
+        is AppState.Success -> {
+            binding.loadingLayout.visibility = View.GONE
+
+            WeatherDiffUtilCallback(adapter.getData(), data.weatherList).apply {
+                (DiffUtil.calculateDiff(this)).dispatchUpdatesTo(adapter)
             }
+            adapter.setData(data.weatherList)
         }
     }
 
@@ -105,11 +106,12 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     }
 
     override fun onItemClick(weather: Weather) {
-        val bundle = Bundle()
-        bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
         requireActivity().supportFragmentManager.beginTransaction().add(
             R.id.container,
-            DetailsFragment.newInstance(bundle)
+            DetailsFragment.newInstance(Bundle().apply {
+                putParcelable(KEY_BUNDLE_WEATHER, weather)
+                //в бущущем не накосячу с bundle
+            })
         ).addToBackStack("").commit()
     }
 }

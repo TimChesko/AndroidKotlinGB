@@ -17,8 +17,7 @@ fun getDefaultCity() = City("Москва", 55.75, 37.61, R.drawable.ic_london)
 data class City(val name: String, val lat: Double, val lon: Double, val imageCity: Int) : Parcelable
 //Добавил в City, а не в Weather, тк все эти значения const
 
-fun getWorldCities(): List<Weather> {
-    return listOf(
+fun getWorldCities(): List<Weather> = listOf(
         Weather(City("Лондон", 51.5085300, -0.1257400, R.drawable.ic_london), 1, 2),
         Weather(City("Токио", 35.6895000, 139.6917100, R.drawable.ic_tokyo), 3, 4),
         Weather(City("Париж", 48.8534100, 2.3488000, R.drawable.ic_paris), 5, 6),
@@ -30,10 +29,8 @@ fun getWorldCities(): List<Weather> {
         Weather(City("Киев", 50.4501, 30.523400000000038, R.drawable.ic_kiev), 17, 18),
         Weather(City("Пекин", 39.90419989999999, 116.40739630000007, R.drawable.ic_pekin), 19, 20)
     )
-}
 
-fun getRussianCities(): List<Weather> {
-    return listOf(
+fun getRussianCities(): List<Weather> = listOf(
         Weather(City("Москва", 55.755826, 37.617299900000035, R.drawable.ic_moscow), 1, 2),
         Weather(City("Санкт-Петербург", 59.9342802, 30.335098600000038, R.drawable.ic_saint_peter), 3, 3),
         Weather(City("Новосибирск", 55.00835259999999, 82.93573270000002, R.drawable.ic_russia), 5, 6),
@@ -45,4 +42,3 @@ fun getRussianCities(): List<Weather> {
         Weather(City("Ростов-на-Дону", 47.2357137, 39.701505, R.drawable.ic_russia), 17, 18),
         Weather(City("Уфа", 54.7387621, 55.972055400000045, R.drawable.ic_russia), 19, 20)
     )
-}

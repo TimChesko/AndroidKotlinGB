@@ -26,5 +26,4 @@ class MainViewModel(
             liveData.postValue(AppState.Success(answer))
         }.start()
     }
-
 }

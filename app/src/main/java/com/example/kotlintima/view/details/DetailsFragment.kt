@@ -36,17 +36,35 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather: Weather = requireArguments().getParcelable(KEY_BUNDLE_WEATHER)!!
-        renderData(weather)
+        arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
+            renderData(it)
+        } //при рендере точно не будет null
     }
 
     private fun renderData(weather: Weather) {
-        binding.loadingLayout.visibility = View.GONE
-        binding.cityName.text = weather.city.name
-        binding.temperatureValue.text = weather.temperature.toString()
-        binding.feelsLikeValue.text = weather.feelsLike.toString()
-        binding.cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
-        binding.imageCity.setImageResource(weather.city.imageCity)
+        /**
+         * Функции apply и also возвращают объект контекста -> цепочка функций
+         * let, run и with возвращают результат лямбды -> присваивание переменной
+         *
+         * Поэтому я использую with, а не apply
+         * Подробнее: https://kotlinlang.ru/docs/reference/scope-functions.html
+         *
+         * Примечание: не ипользовать with внутри with, чтобы не ломать читаемость кода и просто не было проблем !!!
+         **/
+        with(binding) {
+            loadingLayout.visibility = View.GONE
+            cityName.text = weather.city.name
+            temperatureValue.text = weather.temperature.toString()
+            feelsLikeValue.text = weather.feelsLike.toString()
+            cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
+            imageCity.setImageResource(weather.city.imageCity)
+            mainView.showSnackBar(mainView, "Work")
+        }
+    }
+
+    fun View.showSnackBar(view: View, text: String) {
+        Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show()
+        //short чтобы не бесило
     }
 
     companion object {
