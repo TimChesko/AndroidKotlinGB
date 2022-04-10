@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.kotlintima.R
 import com.example.kotlintima.databinding.FragmentDetailsBinding
 import com.example.kotlintima.repository.Weather
 import com.example.kotlintima.utlis.KEY_BUNDLE_WEATHER
@@ -45,6 +46,7 @@ class DetailsFragment : Fragment() {
         binding.temperatureValue.text = weather.temperature.toString()
         binding.feelsLikeValue.text = weather.feelsLike.toString()
         binding.cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
+        binding.imageCity.setImageResource(weather.city.imageCity)
     }
 
     companion object {
