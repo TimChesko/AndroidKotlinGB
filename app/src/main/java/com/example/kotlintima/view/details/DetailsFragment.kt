@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.kotlintima.R
 import com.example.kotlintima.databinding.FragmentDetailsBinding
 import com.example.kotlintima.repository.OnServerResponse
 import com.example.kotlintima.repository.Weather
@@ -49,9 +48,9 @@ class DetailsFragment : Fragment(), OnServerResponse {
         with(binding) {
             loadingLayout.visibility = View.GONE
             cityName.text = currentCityName
-            temperatureValue.text = weather.factDTO.temperature.toString()
-            feelsLikeValue.text = weather.factDTO.feelsLike.toString()
-            cityCoordinates.text = "${weather.infoDTO.lat} ${weather.infoDTO.lon}"
+            temperatureValue.text = weather.mainDTO.temp.toString()
+            feelsLikeValue.text = weather.mainDTO.feels_like.toString()
+            cityCoordinates.text = "${weather.coordDTO.lat} ${weather.coordDTO.lon}"
 
             mainView.showSnackBar(mainView, "Work")
         }

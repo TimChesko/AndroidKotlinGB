@@ -2,11 +2,9 @@ package com.example.kotlintima.repository
 
 import com.google.gson.annotations.SerializedName
 
-data class InfoDTO(
+data class CoordDTO(
     @SerializedName("lat")
     val lat: Double,
     @SerializedName("lon")
-    val lon: Double,
-    @SerializedName("url")
-    val url: String
+    val lon: Double
 )
