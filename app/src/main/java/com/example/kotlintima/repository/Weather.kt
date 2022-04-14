@@ -11,7 +11,7 @@ data class Weather(
     val feelsLike: Int = 0,
 ) : Parcelable
 
-fun getDefaultCity() = City("Москва", 55.75, 37.61, R.drawable.ic_london)
+fun getDefaultCity() = City("Москва", 55.75, 37.61, R.drawable.ic_moscow)
 
 @Parcelize
 data class City(val name: String, val lat: Double, val lon: Double, val imageCity: Int) : Parcelable

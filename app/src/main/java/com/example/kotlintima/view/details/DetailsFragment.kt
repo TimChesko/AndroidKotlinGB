@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kotlintima.R
 import com.example.kotlintima.databinding.FragmentDetailsBinding
+import com.example.kotlintima.repository.OnServerResponse
 import com.example.kotlintima.repository.Weather
+import com.example.kotlintima.repository.WeatherDTO
+import com.example.kotlintima.repository.WeatherLoader
 import com.example.kotlintima.utlis.KEY_BUNDLE_WEATHER
 import com.google.android.material.snackbar.Snackbar
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), OnServerResponse {
 
 
     private var _binding: FragmentDetailsBinding? = null
@@ -33,38 +36,29 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
-
+    lateinit var currentCityName: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
-            renderData(it)
-        } //при рендере точно не будет null
+            currentCityName = it.city.name
+            WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+        }
     }
 
-    private fun renderData(weather: Weather) {
-        /**
-         * Функции apply и also возвращают объект контекста -> цепочка функций
-         * let, run и with возвращают результат лямбды -> присваивание переменной
-         *
-         * Поэтому я использую with, а не apply
-         * Подробнее: https://kotlinlang.ru/docs/reference/scope-functions.html
-         *
-         * Примечание: не ипользовать with внутри with, чтобы не ломать читаемость кода и просто не было проблем !!!
-         **/
+    private fun renderData(weather: WeatherDTO) {
         with(binding) {
             loadingLayout.visibility = View.GONE
-            cityName.text = weather.city.name
-            temperatureValue.text = weather.temperature.toString()
-            feelsLikeValue.text = weather.feelsLike.toString()
-            cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
-            imageCity.setImageResource(weather.city.imageCity)
+            cityName.text = currentCityName
+            temperatureValue.text = weather.factDTO.temperature.toString()
+            feelsLikeValue.text = weather.factDTO.feelsLike.toString()
+            cityCoordinates.text = "${weather.infoDTO.lat} ${weather.infoDTO.lon}"
+
             mainView.showSnackBar(mainView, "Work")
         }
     }
 
     fun View.showSnackBar(view: View, text: String) {
         Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show()
-        //short чтобы не бесило
     }
 
     companion object {
@@ -74,6 +68,10 @@ class DetailsFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onResponse(weatherDTO: WeatherDTO) {
+        renderData(weatherDTO)
     }
 }
 
