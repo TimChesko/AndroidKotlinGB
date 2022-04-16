@@ -1,32 +1,17 @@
 package com.example.kotlintima.repository.dto
 
+
 import com.google.gson.annotations.SerializedName
 
 data class WeatherDTO(
-    @SerializedName("base")
-    val base: String,
-    @SerializedName("clouds")
-    val clouds: Clouds,
-    @SerializedName("cod")
-    val cod: Int,
-    @SerializedName("coord")
-    val coord: Coord,
-    @SerializedName("dt")
-    val dt: Int,
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("main")
-    val main: Main,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("sys")
-    val sys: Sys,
-    @SerializedName("timezone")
-    val timezone: Int,
-    @SerializedName("visibility")
-    val visibility: Int,
-    @SerializedName("weather")
-    val weather: List<Weather>,
-    @SerializedName("wind")
-    val wind: Wind
+    @SerializedName("fact")
+    val fact: Fact,
+    @SerializedName("forecast")
+    val forecast: Forecast,
+    @SerializedName("info")
+    val info: Info,
+    @SerializedName("now")
+    val now: Int,
+    @SerializedName("now_dt")
+    val nowDt: String
 )
