@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintima.databinding.FragmentWeatherListRecyclerItemBinding
 import com.example.kotlintima.repository.Weather
 
-
 class WeatherListAdapter(
     private val onItemListClickListener: OnItemListClickListener,
     private var data: List<Weather> = listOf()

@@ -1,10 +1,11 @@
-package com.example.kotlintima.repository
+package com.example.kotlintima.repository.dto
+
 
 import com.google.gson.annotations.SerializedName
 
-data class MainDTO(
+data class Main(
     @SerializedName("feels_like")
-    val feels_like: Double,
+    val feelsLike: Double,
     @SerializedName("humidity")
     val humidity: Int,
     @SerializedName("pressure")
@@ -12,7 +13,7 @@ data class MainDTO(
     @SerializedName("temp")
     val temp: Double,
     @SerializedName("temp_max")
-    val temp_max: Double,
+    val tempMax: Double,
     @SerializedName("temp_min")
-    val temp_min: Double
+    val tempMin: Double
 )

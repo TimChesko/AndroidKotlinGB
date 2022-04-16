@@ -1,8 +1,8 @@
-package com.example.kotlintima.repository
+package com.example.kotlintima.repository.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CloudsDTO(
+data class Clouds(
     @SerializedName("all")
     val all: Int
 )

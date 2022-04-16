@@ -3,6 +3,7 @@ package com.example.kotlintima.repository
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.example.kotlintima.repository.dto.WeatherDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader

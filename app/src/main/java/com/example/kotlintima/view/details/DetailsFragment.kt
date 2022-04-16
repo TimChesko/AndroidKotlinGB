@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment
 import com.example.kotlintima.databinding.FragmentDetailsBinding
 import com.example.kotlintima.repository.OnServerResponse
 import com.example.kotlintima.repository.Weather
-import com.example.kotlintima.repository.WeatherDTO
 import com.example.kotlintima.repository.WeatherLoader
+import com.example.kotlintima.repository.dto.WeatherDTO
 import com.example.kotlintima.utlis.KEY_BUNDLE_WEATHER
 import com.google.android.material.snackbar.Snackbar
 
 class DetailsFragment : Fragment(), OnServerResponse {
-
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
@@ -48,9 +47,9 @@ class DetailsFragment : Fragment(), OnServerResponse {
         with(binding) {
             loadingLayout.visibility = View.GONE
             cityName.text = currentCityName
-            temperatureValue.text = weather.mainDTO.temp.toString()
-            feelsLikeValue.text = weather.mainDTO.feels_like.toString()
-            cityCoordinates.text = "${weather.coordDTO.lat} ${weather.coordDTO.lon}"
+            temperatureValue.text = weather.main.temp.toString()
+            feelsLikeValue.text = weather.main.feelsLike.toString()
+            cityCoordinates.text = "${weather.coord.lat} ${weather.coord.lon}"
 
             mainView.showSnackBar(mainView, "Work")
         }

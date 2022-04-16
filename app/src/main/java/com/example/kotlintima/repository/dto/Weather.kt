@@ -1,8 +1,8 @@
-package com.example.kotlintima.repository
+package com.example.kotlintima.repository.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class WeatherXDTO(
+data class Weather(
     @SerializedName("description")
     val description: String,
     @SerializedName("icon")

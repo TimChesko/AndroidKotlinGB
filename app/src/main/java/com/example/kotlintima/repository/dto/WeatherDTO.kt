@@ -1,32 +1,32 @@
-package com.example.kotlintima.repository
+package com.example.kotlintima.repository.dto
 
 import com.google.gson.annotations.SerializedName
 
 data class WeatherDTO(
     @SerializedName("base")
     val base: String,
-    @SerializedName("cloudsDTO")
-    val cloudsDTO: CloudsDTO,
+    @SerializedName("clouds")
+    val clouds: Clouds,
     @SerializedName("cod")
     val cod: Int,
-    @SerializedName("coordDTO")
-    val coordDTO: CoordDTO,
+    @SerializedName("coord")
+    val coord: Coord,
     @SerializedName("dt")
     val dt: Int,
     @SerializedName("id")
     val id: Int,
-    @SerializedName("mainDTO")
-    val mainDTO: MainDTO,
+    @SerializedName("main")
+    val main: Main,
     @SerializedName("name")
     val name: String,
-    @SerializedName("sysDTO")
-    val sysDTO: SysDTO,
+    @SerializedName("sys")
+    val sys: Sys,
     @SerializedName("timezone")
     val timezone: Int,
     @SerializedName("visibility")
     val visibility: Int,
     @SerializedName("weather")
-    val weather: List<WeatherXDTO>,
-    @SerializedName("windDTO")
-    val windDTO: WindDTO
+    val weather: List<Weather>,
+    @SerializedName("wind")
+    val wind: Wind
 )

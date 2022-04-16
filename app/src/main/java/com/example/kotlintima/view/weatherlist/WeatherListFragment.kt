@@ -16,7 +16,6 @@ import com.example.kotlintima.utlis.KEY_BUNDLE_WEATHER
 import com.example.kotlintima.view.details.DetailsFragment
 import com.example.kotlintima.viewmodel.AppState
 import com.example.kotlintima.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
@@ -81,7 +80,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     private fun renderData(data: AppState) = when (data) {
         is AppState.Error -> {
             binding.loadingLayout.visibility = View.GONE
-            with(DetailsFragment()){
+            with(DetailsFragment()) {
                 mainView.showSnackBar(mainView, "Не получилось ${data.error}")
             }
         }
@@ -96,6 +95,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
             WeatherDiffUtilCallback(adapter.getData(), data.weatherList).apply {
                 (DiffUtil.calculateDiff(this)).dispatchUpdatesTo(adapter)
             }
+
             adapter.setData(data.weatherList)
         }
     }
@@ -110,7 +110,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
             R.id.container,
             DetailsFragment.newInstance(Bundle().apply {
                 putParcelable(KEY_BUNDLE_WEATHER, weather)
-                //в бущущем не накосячу с bundle
             })
         ).addToBackStack("").commit()
     }

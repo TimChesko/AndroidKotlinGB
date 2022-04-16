@@ -1,8 +1,8 @@
-package com.example.kotlintima.repository
+package com.example.kotlintima.repository.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class WindDTO(
+data class Wind(
     @SerializedName("deg")
     val deg: Int,
     @SerializedName("speed")

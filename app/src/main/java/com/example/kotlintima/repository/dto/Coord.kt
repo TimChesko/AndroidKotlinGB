@@ -1,8 +1,9 @@
-package com.example.kotlintima.repository
+package com.example.kotlintima.repository.dto
+
 
 import com.google.gson.annotations.SerializedName
 
-data class CoordDTO(
+data class Coord(
     @SerializedName("lat")
     val lat: Double,
     @SerializedName("lon")
