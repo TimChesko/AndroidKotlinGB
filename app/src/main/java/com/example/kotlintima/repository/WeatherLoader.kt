@@ -13,7 +13,7 @@ import java.net.URL
 class WeatherLoader(private val onServerResponseListener: OnServerResponse) {
 
     fun loadWeather(lat: Double, lon: Double){
-        val urlText = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=85a237a3fa1b8c35abfb5d0bacdf3137"
+        val urlText = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=85a237a3fa1b8c35abfb5d0bacdf3137&units=imperial"
         val uri = URL(urlText)
         val urlConnection:HttpURLConnection =(uri.openConnection() as HttpURLConnection)
 
