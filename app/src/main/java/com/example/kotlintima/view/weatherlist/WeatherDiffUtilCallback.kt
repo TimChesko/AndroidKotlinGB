@@ -30,5 +30,4 @@ class WeatherDiffUtilCallback(
         return (oldWeather.feelsLike == newWeather.feelsLike
                 && oldWeather.temperature == newWeather.temperature)
     }
-
 }

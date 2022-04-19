@@ -12,4 +12,8 @@
     <string name="coord_lt_ln">lt/ln: 55.755826, 37.617299900000035</string>
     <string name="def_temperature_string">+15</string>
     <string name="def_feels_temp_string">-23</string>
+
+    <string name="threads">Threads</string>
+    <string name="text_sleep">Уснуть</string>
+    <string name="text_num_three">3</string>
 </resources>
