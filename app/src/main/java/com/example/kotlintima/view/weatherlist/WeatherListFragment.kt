@@ -84,18 +84,14 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
                 mainView.showSnackBar(mainView, "Не получилось ${data.error}")
             }
         }
-
         is AppState.Loading -> {
             binding.loadingLayout.visibility = View.VISIBLE
         }
-
         is AppState.Success -> {
             binding.loadingLayout.visibility = View.GONE
-
             WeatherDiffUtilCallback(adapter.getData(), data.weatherList).apply {
                 (DiffUtil.calculateDiff(this)).dispatchUpdatesTo(adapter)
             }
-
             adapter.setData(data.weatherList)
         }
     }
@@ -113,5 +109,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
             })
         ).addToBackStack("").commit()
     }
+
 }
 

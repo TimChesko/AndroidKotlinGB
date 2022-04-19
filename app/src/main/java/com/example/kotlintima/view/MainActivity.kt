@@ -1,13 +1,17 @@
 package com.example.kotlintima.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlintima.R
+import com.example.kotlintima.repository.service.MainService
+import com.example.kotlintima.view.threads.ThreadsFragment
 import com.example.kotlintima.view.weatherlist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -15,6 +19,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
+        startService(Intent(this, MainService::class.java))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -27,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         thread = !thread
         when (item.itemId) {
             R.id.action_threads -> {
-                if (thread){
+                if (thread) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, ThreadsFragment.newInstance()).commit()
                 } else {

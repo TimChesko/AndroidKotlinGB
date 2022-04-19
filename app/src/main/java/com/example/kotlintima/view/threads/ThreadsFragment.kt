@@ -1,4 +1,4 @@
-package com.example.kotlintima.view
+package com.example.kotlintima.view.threads
 
 import android.annotation.SuppressLint
 import android.os.Bundle
