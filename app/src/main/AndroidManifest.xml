@@ -23,6 +23,17 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".repository.service.MainService"/>
+        <service android:name=".repository.service.MainService" />
+
+        <service android:name=".repository.service.DetailsService" />
+
+        <receiver
+            android:name=".repository.receiver.MyBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_AIRPLANE_MODE_CHANGE" />
+                <action android:name="myaction" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
