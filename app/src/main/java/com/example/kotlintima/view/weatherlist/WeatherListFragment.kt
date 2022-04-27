@@ -81,7 +81,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         is AppState.Error -> {
             binding.loadingLayout.visibility = View.GONE
             with(DetailsFragment()) {
-                mainView.showSnackBar(mainView, "Не получилось ${data.error}")
+                showSnackBar(mainView, "Не получилось ${data.error}")
             }
         }
         is AppState.Loading -> {
